@@ -9,7 +9,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SystemClass* System = NULL;
 	bool result;
 
-	//创建SystemClass类
+	//创建SystemClass类test
 	System = new SystemClass;
 
 	if (!System)
