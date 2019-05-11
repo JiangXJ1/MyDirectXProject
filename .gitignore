@@ -1,6 +1,5 @@
 Debug/
 .vs/
 *.aps
-*.rc
 *.db
 *.opendb
