@@ -1,6 +1,9 @@
 #include "SystemClass.h"
 #include "Math/Vector3.h"
+#include "Math/Quaternion.h"
 #include "Math/Matrix4x4.h"
+#include "Math/mymath.h"
+#include <cmath>
 using namespace Math;
 static SystemClass* D3DAPP = NULL;
 
@@ -125,33 +128,12 @@ bool SystemClass::Frame()
 	}
 
 	if (m_pInput->IsKeyDown(VK_F1)) {
-		Vector3 v1(0, 0, 1);
-		float arry[4][4] = {
-			{ 1,0,0,2 },
-			{ 0,1,0,2 },
-			{ 0,0,1,2 },
-			{ 0,0,0,1 },
-		};
-		Matrix4x4 matrix(arry);
-
-		auto mat1 = matrix.Inverse();
-		auto mat2 = matrix * mat1;
-		Vector3 v2(0, 0, 0);
-		matrix.multPointMatrix(v1, v2);
-
-
-		Vector3 v3(1, 1, 1);
-		float arry1[4][4] = {
-			{ 1.5f,0,0,0 },
-			{ 0,1.6f,0,0 },
-			{ 0,0,2,0 },
-			{ 0,0,0,1 },
-		};
-		Matrix4x4 matrix1(arry1);
-		Vector3 v4(0, 0, 0);
-		matrix1.multPointMatrix(v3, v4);
-
-		Vector3 v5(0, 0, 0);
+		Quaternion q;
+		q.EulerAngle(45, 15, 100);
+		q.Normalize();
+		Vector3 v1;
+		q.ToEulerAngles(v1);
+		int n = 0;
 	}
 
 	bool r = m_pGraphic->Frame();

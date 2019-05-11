@@ -1,4 +1,5 @@
 #include "Vector3.h"
+#include "mymath.h"
 #include <cmath>
 
 namespace Math {
@@ -55,6 +56,11 @@ namespace Math {
 		x *= v.x;
 		y *= v.y;
 		z *= v.z;
+	}
+
+	bool Vector3::operator==(const Vector3 & v)
+	{
+		return x == v.x && y == v.y && z == v.z;
 	}
 
 	float Vector3::Length()
