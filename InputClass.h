@@ -8,7 +8,6 @@ class InputClass
 
 private:
 	bool mKey[256];
-
 public:
 	InputClass();
 	InputClass(const InputClass& other);
@@ -18,6 +17,7 @@ public:
 	void KeyDown(unsigned int wParam);
 	void KeyUp(unsigned int wParam);
 	bool IsKeyDown(unsigned int wParam);
+	void Clear();
 };
 #endif
 

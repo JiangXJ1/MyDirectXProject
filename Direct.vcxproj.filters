@@ -39,6 +39,15 @@
     <ClInclude Include="Math\Vector3.h">
       <Filter>头文件\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Math\mymath.h">
+      <Filter>头文件\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Quaternion.h">
+      <Filter>头文件\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="MyWindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputClass.cpp">
@@ -58,6 +67,15 @@
     </ClCompile>
     <ClCompile Include="Math\Matrix4x4.cpp">
       <Filter>源文件\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\mymath.cpp">
+      <Filter>源文件\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Quaternion.cpp">
+      <Filter>源文件\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="MyWindow.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

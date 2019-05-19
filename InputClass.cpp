@@ -35,3 +35,7 @@ bool InputClass::IsKeyDown(unsigned int wParam)
 {	
 	return mKey[wParam];
 }
+
+void InputClass::Clear()
+{
+}
