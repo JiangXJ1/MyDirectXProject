@@ -6,7 +6,6 @@ static map<HWND, MyWindow*>* allWindow;
 //接受SystemClass类对象的全局回调函数
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-
 	if (allWindow != nullptr) 
 	{
 		
@@ -94,8 +93,6 @@ void MyWindow::Show()
 	ShowWindow(hWnd, SW_SHOW);
 	SetForegroundWindow(hWnd);
 	SetFocus(hWnd);
-	m_pInput = new InputClass();
-	m_pInput->Initialize();
 	(*allWindow)[hWnd] = this;
 	//隐藏鼠标光标
 	//ShowCursor(false);
@@ -104,13 +101,6 @@ void MyWindow::Show()
 
 void MyWindow::Hide()
 {
-	if (m_pInput != NULL) 
-	{
-		m_pInput->Clear();
-		delete m_pInput;
-		m_pInput = NULL;
-	}
-
 	if (hWnd != NULL) 
 	{
 		allWindow->erase(hWnd);
@@ -129,14 +119,13 @@ void MyWindow::Hide()
 
 void MyWindow::Frame()
 {
-	if (m_pInput->IsKeyDown(VK_F1)) {
-		this->SetFullScreen(false);
-	}
-	if (m_pInput->IsKeyDown(VK_F2)) {
-		this->SetFullScreen(true);
-	}
-	if (m_pInput->IsKeyDown(VK_F3)) {
-		this->SetWindowSize(800, 600);
+	if (Input != nullptr) {
+		if (Input->IsKeyUp(VK_F1)) {
+			this->SetFullScreen(!this->fullscreen);
+		}
+		if (Input->IsKeyDown(VK_F2)) {
+			this->SetWindowSize(800, 600);
+		}
 	}
 }
 
@@ -165,32 +154,29 @@ void MyWindow::SetWindowSize(const int w, const int h)
 
 LRESULT MyWindow::MessageHandler(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	if (m_pInput != nullptr) 
+	switch (message)
 	{
-		switch (message)
-		{
-		case WM_DESTROY:
-		{
-			Hide();
-			return 0;
-		}
+	case WM_DESTROY:
+	{
+		Hide();
+		return 0;
+	}
 
-		case WM_CLOSE:
-		{
-			Hide();
-			return 0;
-		}
-		case WM_KEYDOWN:
-		{
-			m_pInput->KeyDown(wParam);
-			return 0;
-		}
-		case  WM_KEYUP:
-		{
-			m_pInput->KeyUp(wParam);
-			return 0;
-		}
-		}
+	case WM_CLOSE:
+	{
+		Hide();
+		return 0;
+	}
+	case WM_KEYDOWN:
+	{
+		Input->KeyDown(wParam);
+		return 0;
+	}
+	case  WM_KEYUP:
+	{
+		Input->KeyUp(wParam);
+		return 0;
+	}
 	}
 	return Application->MessageHandler(hwnd, message, wParam, lParam);
 }

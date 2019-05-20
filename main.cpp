@@ -6,27 +6,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
 
 
-	SystemClass* System = NULL;
-	bool result;
-
-	//创建SystemClass类test
-	System = new SystemClass;
-
-	if (!System)
-	{
-		return 0;
-	}
-
 	//初始化和运行系统对象
-	result = System->Initialize();
-	if (result)
-	{
-		System->Run();
-	}
+	Application->Initialize();
+	Application->Run();
 
 	//关闭systemclass对象
-	System->Shutdown();
-	delete System;
-	System = NULL;
+	Application->Shutdown();
+	delete Application;
+	Application = NULL;
 	return 0;
 }

@@ -7,17 +7,20 @@ class InputClass
 {
 
 private:
-	bool mKey[256];
+	bool mCacheKeyState[256];
+	bool mHasKey[256];
+	unsigned int mKeyFrame[256];
 public:
 	InputClass();
 	InputClass(const InputClass& other);
 	~InputClass();
 public:
-	void Initialize();
 	void KeyDown(unsigned int wParam);
 	void KeyUp(unsigned int wParam);
 	bool IsKeyDown(unsigned int wParam);
-	void Clear();
+	bool IsKeyUp(unsigned int wParam);
+	bool HasKey(unsigned int wParam);
+	void Frame();
 };
 #endif
 

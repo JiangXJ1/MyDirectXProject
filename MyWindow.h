@@ -3,8 +3,6 @@
 #define _MY_WINDOW_H
 
 #include <Windows.h>
-#include <map>
-#include "InputClass.h"
 
 class MyWindow
 {
@@ -15,7 +13,6 @@ private:
 	LPCWSTR mApplicationName;//应用名称
 	HINSTANCE mHinstance;//应用实例句柄
 	HWND hWnd;//应用窗口句柄
-	InputClass* m_pInput;//输入类
 	long style;
 
 private:

@@ -5,11 +5,15 @@
 #include <map>
 #include <Windows.h>
 #include "MyWindow.h"
+#include "InputClass.h"
 
 class SystemClass
 {
+public:
+	unsigned int frame;
 private:
 	MyWindow* mainWindow;
+	
 private:
 	//Ö¡º¯Êý
 	bool Frame();
@@ -17,11 +21,9 @@ private:
 public:
 	SystemClass();
 
-	SystemClass(const SystemClass& other);
-
 	~SystemClass();
 
-	bool Initialize();
+	void Initialize();
 
 	void Shutdown();
 
@@ -33,5 +35,6 @@ public:
 	LRESULT CALLBACK MessageHandler(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPAram);
 };
 
-static SystemClass* Application;
+extern SystemClass* Application;
+extern InputClass* Input;
 #endif

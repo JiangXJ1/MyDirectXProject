@@ -6,12 +6,10 @@
 #include <cmath>
 using namespace Math;
 
-SystemClass::SystemClass()
-{
-}
+SystemClass* Application = new SystemClass;
+InputClass* Input = new InputClass;
 
-
-SystemClass::SystemClass(const SystemClass& other)
+SystemClass::SystemClass() : mainWindow{ nullptr }, frame{0}
 {
 }
 
@@ -19,17 +17,11 @@ SystemClass::~SystemClass()
 {
 }
 
-bool SystemClass::Initialize()
+void SystemClass::Initialize()
 {
-
-	//获取一个额外的指向这个对象的指针
-	if (Application == NULL)
-		Application = this;
-	else
-		return false;
+	frame = 0;
 	mainWindow = CreateMyWindow(1280, 720, false, L"主窗口");
 	mainWindow->Show();
-	return true;
 }
 
 void SystemClass::Shutdown()
@@ -70,6 +62,7 @@ MyWindow * SystemClass::CreateMyWindow(int width, int height, bool fullScreen, L
 
 bool SystemClass::Frame()
 {
+	frame++;
 	if (mainWindow != nullptr) 
 	{
 		if (!mainWindow->IsShowing()) {
@@ -79,6 +72,7 @@ bool SystemClass::Frame()
 		}
 		else
 		{
+			Input->Frame();
 			mainWindow->Frame(); 
 		}
 	}
