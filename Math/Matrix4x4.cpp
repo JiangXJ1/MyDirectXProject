@@ -1,6 +1,13 @@
 #include "Matrix4x4.h"
-
+#include <string.h>
+using namespace std;
 namespace Math {
+	float Matrix4x4::tmpM[4][4] = {
+		{1,0,0,0},
+		{0,1,0,0},
+		{0,0,1,0},
+		{1,1,1,1},
+	};
 	Matrix4x4::Matrix4x4()
 	{
 	}
@@ -39,6 +46,19 @@ namespace Math {
 			}
 		}
 		return mult;
+	}
+	void Matrix4x4::operator*=(const Matrix4x4 & rhs)
+	{
+		memcpy(tmpM, m, 16 * sizeof(float));
+
+		for (int i = 0; i < 4; ++i) {
+			for (int j = 0; j < 4; ++j) {
+				m[i][j] = tmpM[i][0] * rhs[0][j] +
+					tmpM[i][1] * rhs[1][j] +
+					tmpM[i][2] * rhs[2][j] +
+					tmpM[i][3] * rhs[3][j];
+			}
+		}
 	}
 	void Matrix4x4::multPointMatrix(const Vector3 & src, Vector3 & dst) const
 	{

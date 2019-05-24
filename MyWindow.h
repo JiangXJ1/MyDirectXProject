@@ -3,10 +3,12 @@
 #define _MY_WINDOW_H
 
 #include <Windows.h>
+#include "GraphicsClass.h"
 
 class MyWindow
 {
 public:
+	int posX, posY;
 	int width, height;
 	bool fullscreen;
 private:
@@ -14,6 +16,7 @@ private:
 	HINSTANCE mHinstance;//应用实例句柄
 	HWND hWnd;//应用窗口句柄
 	long style;
+	GraphicsClass* m_pGraphic;
 
 private:
 	void ReflushWindowSize();

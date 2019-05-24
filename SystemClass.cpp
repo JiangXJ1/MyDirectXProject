@@ -5,6 +5,7 @@
 #include "Math/mymath.h"
 #include <cmath>
 using namespace Math;
+using namespace Engine;
 
 SystemClass* Application = new SystemClass;
 InputClass* Input = new InputClass;
@@ -20,7 +21,7 @@ SystemClass::~SystemClass()
 void SystemClass::Initialize()
 {
 	frame = 0;
-	mainWindow = CreateMyWindow(1280, 720, false, L"主窗口");
+	mainWindow = CreateMyWindow(600, 400, false, L"主窗口");
 	mainWindow->Show();
 }
 

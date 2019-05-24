@@ -19,6 +19,12 @@
     <Filter Include="源文件\Math">
       <UniqueIdentifier>{a74535b6-185b-4d31-8ddc-77875c71bb0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Engine">
+      <UniqueIdentifier>{f461aea8-1da5-4a99-8e70-6ceea366a31a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Engine">
+      <UniqueIdentifier>{b7e550f6-59bb-4fa3-8c93-4d6bcb2bc631}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputClass.h">
@@ -48,6 +54,12 @@
     <ClInclude Include="MyWindow.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Color.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Camera.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputClass.cpp">
@@ -76,6 +88,12 @@
     </ClCompile>
     <ClCompile Include="MyWindow.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Color.cpp">
+      <Filter>源文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Camera.cpp">
+      <Filter>源文件\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

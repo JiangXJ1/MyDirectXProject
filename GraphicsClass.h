@@ -2,25 +2,42 @@
 #ifndef GRAPHICS_CLASS_H
 #define GRAPHICS_CLASS_H
 #include <Windows.h>
-
-//全局变量
-const bool FULL_SCREEN = true;
-const bool VSYNC_ENABLE = true;
-const float SCREEN_DEPTH = 1000.0f;  //视截体远裁面
-const float SCREEN_NEAR = 0.1f;  //视截体近裁面
+#include <d3d11.h>
+#include <vector>
+#include "Engine/Color.h"
+#include "Engine/Camera.h"
+using namespace std;
+using namespace Engine;
 
 class GraphicsClass
 {
+	//私有字段
 private:
-	bool Render();
+	vector<Camera*> vCameras;
+	float width, height;
+	//基础接口
+	ID3D11Device *m_pDevice;                    //DX设备接口，用于生成各种各样的对象
+	ID3D11DeviceContext *m_pDeviceContext;      //DX设备上下文,用于生成设备渲染指令
+
+	//视图区域
+	ID3D11RenderTargetView *m_pRenderTargetView;//DX渲染目标视图，字面意思
+	ID3D11DepthStencilView *m_pDepthStencilView;//DX深度模板缓存视图
+	ID3D11Texture2D        *m_pDepthStencil;    //深度模板缓存
+
+	//图形接口
+	IDXGISwapChain *m_pSwapChain;               //DX图形接口，交换链
+private:
+	void ReflushCameraDepth();
 public:
 	GraphicsClass();
-	GraphicsClass(const GraphicsClass& other);
 	~GraphicsClass();
 public:
-	bool Initialize(int ScreenWidth, int ScreenHeight, HWND hwnd);
-	void ShutDown();
-	bool Frame();
+	void Render();
+	void ClearColor(Color& backColor);
+	void ResetSize(int WINDOW_WIDTH, int WINDOW_HEIGHT);
+	HRESULT Initialize(HWND hwnd, int WINDOW_WIDTH, int WINDOW_HEIGHT);
+	Camera* CreateCamera(int depth = 0, char clearFlag = CameraClearFlags::ClearWithColorAndDepth);
+	bool RemoveCamera(Camera* camera);
 };
 #endif
 

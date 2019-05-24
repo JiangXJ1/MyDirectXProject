@@ -5,6 +5,8 @@
 namespace Math {
 	class Matrix4x4
 	{
+	private:
+		static float tmpM[4][4];
 	public:
 		float m[4][4] = { { 1, 0, 0, 0 },{ 0, 1, 0, 0 },{ 0, 0, 1, 0 },{ 0, 0, 0, 1 } };
 	public:
@@ -18,6 +20,7 @@ namespace Math {
 		const float* operator[](int i) const;
 		float* operator[](int i);
 		Matrix4x4 operator* (const Matrix4x4& rhs) const;
+		void operator*= (const Matrix4x4& rhs);
 
 #pragma endregion
 

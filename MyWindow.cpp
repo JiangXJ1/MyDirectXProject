@@ -26,24 +26,45 @@ void MyWindow::ReflushWindowSize()
 	if (fullscreen) 
 	{
 		SetWindowLong(hWnd, GWL_STYLE, WS_BORDER);
-		SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, rc.right, rc.bottom,SWP_SHOWWINDOW);
+		SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, rc.right, rc.bottom, SWP_SHOWWINDOW | SWP_NOZORDER);
 	}
 	else
 	{
 		SetWindowLong(hWnd, GWL_STYLE, style);
-		int posX = (rc.right - rc.left - width) / 2;
-		int posY = (rc.bottom - rc.top - height) / 2;
-		SetWindowPos(hWnd, HWND_TOPMOST, posX, posY, width, height, SWP_SHOWWINDOW);
+		SetWindowPos(hWnd, HWND_TOPMOST, posX, posY, width, height, SWP_SHOWWINDOW | SWP_NOZORDER);
 	}
 }
 
-MyWindow::MyWindow(LPCWSTR name) : mApplicationName{name}, width {1280}, height{720}, fullscreen{false}
+MyWindow::MyWindow(LPCWSTR name) 
+	: mApplicationName{name}, 
+	width {1280}, 
+	height{720}, 
+	fullscreen{false},
+	m_pGraphic{nullptr}
 {
+	RECT    rc;
+	HWND hDesk = GetDesktopWindow();
+	GetWindowRect(hDesk, &rc);
 
+
+	posX = (rc.right - rc.left - width) / 2;
+	posY = (rc.bottom - rc.top - height) / 2;
 }
 
-MyWindow::MyWindow(int w, int h, bool full, LPCWSTR name) : mApplicationName{ name }, width{ w }, height{ h }, fullscreen{ full }
+MyWindow::MyWindow(int w, int h, bool full, LPCWSTR name) 
+	: mApplicationName{ name }, 
+	width{ w }, 
+	height{ h }, 
+	fullscreen{ full },
+	m_pGraphic{ nullptr }
 {
+	RECT    rc;
+	HWND hDesk = GetDesktopWindow();
+	GetWindowRect(hDesk, &rc);
+
+
+	posX = (rc.right - rc.left - width) / 2;
+	posY = (rc.bottom - rc.top - height) / 2;
 }
 
 
@@ -77,13 +98,6 @@ void MyWindow::Show()
 
 	//注册这个类
 	RegisterClassEx(&wc);
-	RECT    rc;
-	HWND hDesk = GetDesktopWindow();
-	GetWindowRect(hDesk, &rc);
-
-
-	int posX = (rc.right - rc.left - width) / 2;
-	int posY = (rc.bottom - rc.top - height) / 2;
 	//创建窗口,并且获取窗口的句柄
 	hWnd = CreateWindowEx(WS_EX_APPWINDOW, mApplicationName, mApplicationName,
 		WS_OVERLAPPEDWINDOW,
@@ -96,11 +110,22 @@ void MyWindow::Show()
 	(*allWindow)[hWnd] = this;
 	//隐藏鼠标光标
 	//ShowCursor(false);
-	ReflushWindowSize();
+	if(fullscreen)
+		ReflushWindowSize();
+	if (m_pGraphic == nullptr) 
+	{
+		m_pGraphic = new GraphicsClass;
+		m_pGraphic->Initialize(hWnd, width, height);
+	}
 }
 
 void MyWindow::Hide()
 {
+	if (m_pGraphic != nullptr)
+	{
+		delete m_pGraphic;
+		m_pGraphic = nullptr;
+	}
 	if (hWnd != NULL) 
 	{
 		allWindow->erase(hWnd);
@@ -119,13 +144,57 @@ void MyWindow::Hide()
 
 void MyWindow::Frame()
 {
+	RECT rc;
+	GetWindowRect(hWnd, &rc);
+	int w = rc.right - rc.left;
+	int h = rc.bottom - rc.top;
+	if (m_pGraphic != nullptr)
+		m_pGraphic->ResetSize(w, h);
+	if (hWnd != NULL && !fullscreen)
+	{
+		if (posX != rc.left || posY != rc.top) {
+			posX = rc.left;
+			posY = rc.top;
+		}
+		if (w != width || h != height) 
+		{
+			width = w;
+			height = h;
+		}
+	}
 	if (Input != nullptr) {
-		if (Input->IsKeyUp(VK_F1)) {
+		if (Input->IsKeyUp(VK_SPACE)) {
 			this->SetFullScreen(!this->fullscreen);
 		}
-		if (Input->IsKeyDown(VK_F2)) {
-			this->SetWindowSize(800, 600);
+		if (Input->IsKeyUp(VK_F1)) {
+			auto camera = this->m_pGraphic->CreateCamera(0, CameraClearFlags::ClearWithColor);
+			camera->SetBackColor(1, 0, 0, 1);
 		}
+		if (Input->IsKeyUp(VK_F2)) {
+			auto camera = this->m_pGraphic->CreateCamera(-1, CameraClearFlags::ClearWithColor);
+			camera->SetBackColor(0, 0, 1, 0.5);
+		}
+		if (Input->IsKeyUp(VK_F3)) {
+			float aaa[4][4] = {
+				{1,0,0,0},
+				{0,1,0,0},
+				{0,0,2,0},
+				{1,1,1,1}
+			};
+			Matrix4x4 m1(aaa);
+			float bbb[4][4] = {
+				{2,0,0,0},
+				{0,2,0,0},
+				{0,0,2,0},
+				{1,1,1,1}
+			};
+			Matrix4x4 m2(bbb);
+			Matrix4x4 m3 = m2 * m1;
+			m2 *= m1;
+		}
+	}
+	if (m_pGraphic != nullptr) {
+		m_pGraphic->Render();
 	}
 }
 
@@ -167,14 +236,20 @@ LRESULT MyWindow::MessageHandler(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 		Hide();
 		return 0;
 	}
+
+	case WM_KILLFOCUS:
+	{
+		int n = 0;
+		break;
+	}
 	case WM_KEYDOWN:
 	{
-		Input->KeyDown(wParam);
+		Input->KeyDown((unsigned int)wParam);
 		return 0;
 	}
 	case  WM_KEYUP:
 	{
-		Input->KeyUp(wParam);
+		Input->KeyUp((unsigned int)wParam);
 		return 0;
 	}
 	}
