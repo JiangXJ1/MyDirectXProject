@@ -29,9 +29,9 @@ namespace Math {
 		void multPointMatrix(const Vector3 &src, Vector3 &dst) const;
 		void multDirectionMatrix(const Vector3 &src, Vector3 &dst) const;
 		//ÇóÄæ¾ØÕó
-		Matrix4x4 Inverse() const;
+		bool Inverse(Matrix4x4& dst) const;
 		//Çó×ªÖÃ¾ØÕó
-		Matrix4x4 Transpose() const;
+		void Transpose(Matrix4x4& dst) const;
 #pragma endregion
 
 	};

@@ -25,6 +25,12 @@
     <Filter Include="源文件\Engine">
       <UniqueIdentifier>{b7e550f6-59bb-4fa3-8c93-4d6bcb2bc631}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Engine\Components">
+      <UniqueIdentifier>{fc4ec8dd-09f3-4bd7-8cac-6c8a29db1229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Engine\Components">
+      <UniqueIdentifier>{649b1250-a2e6-482c-851d-2dfc21168be6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputClass.h">
@@ -60,6 +66,15 @@
     <ClInclude Include="Engine\Camera.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\SceneObject.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Components\Component.h">
+      <Filter>头文件\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Components\Transform.h">
+      <Filter>头文件\Engine\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputClass.cpp">
@@ -94,6 +109,15 @@
     </ClCompile>
     <ClCompile Include="Engine\Camera.cpp">
       <Filter>源文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneObject.cpp">
+      <Filter>源文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Component.cpp">
+      <Filter>源文件\Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Transform.cpp">
+      <Filter>源文件\Engine\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

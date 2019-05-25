@@ -82,10 +82,9 @@ namespace Math {
 		dst.z = src.x * m[0][2] + src.y * m[1][2] + src.z * m[2][2];
 	}
 
-	Matrix4x4 Matrix4x4::Inverse() const
+	bool Matrix4x4::Inverse(Matrix4x4& dst) const
 	{
 		int i, j, k;
-		Matrix4x4 s;
 		Matrix4x4 t(*this);
 		for (i = 0; i < 3; i++) {//找到下三角每列的绝对最大值
 			int pivot = i;
@@ -100,7 +99,7 @@ namespace Math {
 				}
 			}
 			if (pivotsize == 0) {
-				return Matrix4x4();
+				return false;
 			}
 			if (pivot != i)//交换两行，使对角位的值为该列最大
 			{
@@ -109,9 +108,9 @@ namespace Math {
 					tmp = t[i][j];
 					t[i][j] = t[pivot][j];
 					t[pivot][j] = tmp;
-					tmp = s[i][j];
-					s[i][j] = s[pivot][j];
-					s[pivot][j] = tmp;
+					tmp = dst[i][j];
+					dst[i][j] = dst[pivot][j];
+					dst[pivot][j] = tmp;
 				}
 			}
 			//将下三角值设定为0
@@ -119,7 +118,7 @@ namespace Math {
 				float f = t[j][i] / t[i][i];
 				for (k = 0; k < 4; k++) {
 					t[j][k] -= t[i][k] * f;
-					s[j][k] -= s[i][k] * f;
+					dst[j][k] -= dst[i][k] * f;
 				}
 			}
 		}
@@ -128,29 +127,27 @@ namespace Math {
 			float f;
 			f = t[i][i];
 			if (f == 0)
-				return Matrix4x4();
+				return false;
 			for (j = 0; j < 4; j++) {//将对角位置为1
 				t[i][j] /= f;
-				s[i][j] /= f;
+				dst[i][j] /= f;
 			}
 			for (j = 0; j < i; j++) {
 				f = t[j][i];
 				for (k = 0; k < 4; k++) {
 					t[j][k] -= f*t[i][k];
-					s[j][k] -= f*s[i][k];
+					dst[j][k] -= f* dst[i][k];
 				}
 			}
 		}
-		return s;
+		return true;
 	}
 
-	Matrix4x4 Matrix4x4::Transpose() const
+	void Matrix4x4::Transpose(Matrix4x4& dst) const
 	{
-		Matrix4x4 mat;
 		for (int i = 0; i < 4; ++i)
 			for (int j = 0; j < 4; ++j)
-				mat[i][j] = this->m[j][i];
-		return mat;
+				dst[i][j] = m[j][i];
 	}
 
 }
