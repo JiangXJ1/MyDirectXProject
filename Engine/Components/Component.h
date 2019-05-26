@@ -2,7 +2,7 @@
 #ifndef _COMPONENT_H
 #define _COMPONENT_H
 #include "../SceneObject.h"
-
+using namespace std;
 namespace Engine {
 	class Component
 	{
@@ -12,10 +12,10 @@ namespace Engine {
 		const SceneObject* m_pOwnObject;
 	public:
 		Component(const SceneObject* pObj);
-		~Component();
+		virtual ~Component();
 	public:
-		inline virtual void OnEnable() {}
-		inline virtual void OnDisable() {}
+		inline virtual void OnEnable() = 0;
+		inline virtual void OnDisable() = 0;
 
 		inline void SetEnable(bool enable) {
 			if (enabled == enable)
@@ -26,6 +26,7 @@ namespace Engine {
 			else
 				OnDisable();
 		}
+
 		inline bool IsEnable() {
 			return enabled;
 		}
@@ -33,7 +34,6 @@ namespace Engine {
 		inline virtual void Update() = 0;
 
 		inline virtual void LateUpdate() = 0;
-
 	};
 }
 #endif // !_COMPONENT_H

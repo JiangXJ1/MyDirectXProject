@@ -26,6 +26,14 @@ namespace Math {
 		return x == q.x && y == q.y && z == q.z && w == q.w;
 	}
 
+	void Quaternion::operator=(const Quaternion & q)
+	{
+		x = q.x;
+		y = q.y;
+		z = q.z;
+		w = q.w;
+	}
+
 	Quaternion Quaternion::operator*(const Quaternion & q) const
 	{
 		//四元数乘法：q1q2=(v1→×v2→+w1v2→+w2v1→,w1w2−v1→⋅v2→)

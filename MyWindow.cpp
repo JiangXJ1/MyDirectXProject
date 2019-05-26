@@ -185,7 +185,8 @@ void MyWindow::Frame()
 			Vector3 v1(0, 0, 1);
 			Vector3 v2(0, 0, 0);
 			m1.multPointMatrix(v1, v2);
-			Vector3 v3;
+			Vector3 v3 = v2;
+			v3 = v2;
 			Matrix4x4 m2;
 			Matrix4x4 m3;
 			auto r = m1.Inverse(m2);

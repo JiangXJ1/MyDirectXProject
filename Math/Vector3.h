@@ -22,6 +22,7 @@ namespace Math {
 		Vector3 operator*(const Vector3& v) const;
 		void operator*=(const Vector3& v);
 		bool operator==(const Vector3& v);
+		void operator=(const Vector3& v);
 #pragma endregion
 
 #pragma region ¹«¹²º¯Êý

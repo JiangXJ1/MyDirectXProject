@@ -63,6 +63,13 @@ namespace Math {
 		return x == v.x && y == v.y && z == v.z;
 	}
 
+	void Vector3::operator=(const Vector3 & v)
+	{
+		x = v.x;
+		y = v.y;
+		z = v.z;
+	}
+
 	float Vector3::Length()
 	{
 		return sqrtf(x * x + y * y + z * z);

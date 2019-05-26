@@ -2,7 +2,7 @@
 namespace Engine{
 
 	Component::Component(const SceneObject * pObj)
-		: m_pOwnObject( pObj ), enabled(true)
+		: m_pOwnObject( pObj ), enabled(true), currentFrame(0)
 	{
 	}
 

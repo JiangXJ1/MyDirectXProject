@@ -15,6 +15,7 @@ namespace Math {
 		//²Ù×÷·ûº¯Êý
 		public:
 			bool operator==(const Quaternion& q) const;
+			void operator=(const Quaternion& q);
 			Quaternion operator*(const Quaternion& q) const;
 		public:
 			float Length() const;

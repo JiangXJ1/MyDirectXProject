@@ -1,6 +1,6 @@
 #pragma once
-#ifndef _OBJECT_H
-#define _OBJECT_H
+#ifndef _SCENEOBJECT_H
+#define _SCENEOBJECT_H
 
 namespace Engine {
 	class SceneObject
@@ -16,4 +16,4 @@ namespace Engine {
 	};
 }
 
-#endif // !_OBJECT_H
+#endif // !_SCENEOBJECT_H
