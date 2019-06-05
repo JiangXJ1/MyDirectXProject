@@ -1,4 +1,6 @@
 #include "GraphicsClass.h"
+#include "Engine/Components/Camera.h"
+#include "Engine/SceneObject.h"
 #include <algorithm>
 #ifndef SAFE_RELEASE
 #define SAFE_RELEASE(p) \
@@ -179,10 +181,10 @@ HRESULT GraphicsClass::Initialize(HWND hwnd, int WINDOW_WIDTH, int WINDOW_HEIGHT
 	return S_OK;
 }
 
-Camera * GraphicsClass::CreateCamera(int depth, char clearFlag)
+Camera * GraphicsClass::CreateCamera(SceneObject* pObj, int depth, char clearFlag)
 {
 	float ratio = width / height;
-	Camera* camera = new Camera(this, ratio, depth, clearFlag);
+	Camera* camera = new Camera(pObj, this, ratio, depth, clearFlag);
 	vCameras.push_back(camera);
 	ReflushCameraDepth();
 	return camera;

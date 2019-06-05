@@ -1,8 +1,8 @@
 #include "Component.h"
 namespace Engine{
 
-	Component::Component(const SceneObject * pObj)
-		: m_pOwnObject( pObj ), enabled(true), currentFrame(0)
+	Component::Component(SceneObject * pObj, unsigned int type)
+		: m_pOwnObject( pObj ), enabled(true), destroyed(false), componentType(type)
 	{
 	}
 

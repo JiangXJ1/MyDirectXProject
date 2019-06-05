@@ -1,4 +1,5 @@
 #include "Matrix4x4.h"
+#include "Vector3.h"
 #include <string.h>
 using namespace std;
 namespace Math {
@@ -60,6 +61,12 @@ namespace Math {
 			}
 		}
 	}
+
+	void Matrix4x4::operator=(const Matrix4x4 & rhs)
+	{
+		memcpy(m, rhs.m, 16 * sizeof(float));
+	}
+
 	void Matrix4x4::multPointMatrix(const Vector3 & src, Vector3 & dst) const
 	{
 		//此处将Vector3当做 (x,y,z,1)进行处理
@@ -143,11 +150,32 @@ namespace Math {
 		return true;
 	}
 
+	Matrix4x4 Matrix4x4::GetInverse() const
+	{
+		Matrix4x4 m;
+		Inverse(m);
+		return m;
+	}
+
 	void Matrix4x4::Transpose(Matrix4x4& dst) const
 	{
 		for (int i = 0; i < 4; ++i)
 			for (int j = 0; j < 4; ++j)
 				dst[i][j] = m[j][i];
+	}
+
+	Matrix4x4 Matrix4x4::GetTranspose() const
+	{
+		Matrix4x4 m;
+		Transpose(m);
+		return m;
+	}
+
+	void Matrix4x4::Reset()
+	{
+		for (int i = 0; i < 4; ++i)
+			for (int j = 0; j < 4; ++j)
+				m[i][j] = (i == j ? 1.0f : 0.0f);
 	}
 
 }

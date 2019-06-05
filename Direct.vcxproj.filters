@@ -63,17 +63,23 @@
     <ClInclude Include="Engine\Color.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Camera.h">
-      <Filter>头文件\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\SceneObject.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Components\Component.h">
       <Filter>头文件\Engine\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Components\Transform.h">
+    <ClInclude Include="Engine\Components\Renderer.h">
       <Filter>头文件\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Components\Camera.h">
+      <Filter>头文件\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\BaseDef.h">
+      <Filter>头文件\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -107,17 +113,20 @@
     <ClCompile Include="Engine\Color.cpp">
       <Filter>源文件\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Camera.cpp">
-      <Filter>源文件\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\SceneObject.cpp">
       <Filter>源文件\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Components\Component.cpp">
       <Filter>源文件\Engine\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Components\Transform.cpp">
+    <ClCompile Include="Engine\Components\Renderer.cpp">
       <Filter>源文件\Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Camera.cpp">
+      <Filter>源文件\Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

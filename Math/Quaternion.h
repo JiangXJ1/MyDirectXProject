@@ -1,11 +1,14 @@
 #pragma once
-#include "Vector3.h"
 namespace Math {
+
+	class Vector3;
+	class Matrix4x4;
+
 	class Quaternion
 	{
 		//变量定义
 		public:
-			float x, y, z, w;
+			float w, x, y, z;
 		//构造函数
 		public:
 			Quaternion();
@@ -31,7 +34,21 @@ namespace Math {
 			void ToEulerAngles(Vector3& v);
 			//转换为弧度
 			void ToEulerRadians(Vector3& v);
-		private:
+
+			//计算共轭四元数
+			void Conjugate(Quaternion& dst) const;
+			Quaternion GetConjugate() const;
+
+			//计算共轭四元数的逆
+			void Inverse(Quaternion& dst) const;
+			Quaternion GetInverse() const;
+
+			//计算四元数的点成
+			float Dot(const Quaternion dst) const;
+
+			void ApplyMatrix(Matrix4x4& matrix) const;
+
+			void Reset();
 
 	};
 }

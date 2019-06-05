@@ -9,6 +9,7 @@ using namespace Engine;
 
 SystemClass* Application = new SystemClass;
 InputClass* Input = new InputClass;
+ObjectManager* ObjectMgr = new ObjectManager;
 
 SystemClass::SystemClass() : mainWindow{ nullptr }, frame{0}
 {
@@ -55,6 +56,11 @@ void SystemClass::Run()
 	}
 }
 
+void SystemClass::PushWaste(void * p)
+{
+	wastes.push_back(p);
+}
+
 MyWindow * SystemClass::CreateMyWindow(int width, int height, bool fullScreen, LPCWSTR name)
 {
 	auto window = new MyWindow(width, height, fullScreen, name);
@@ -63,6 +69,10 @@ MyWindow * SystemClass::CreateMyWindow(int width, int height, bool fullScreen, L
 
 bool SystemClass::Frame()
 {
+	for (auto it = wastes.begin(); it != wastes.end(); ++it) {
+		delete (*it);
+	}
+	wastes.clear();
 	frame++;
 	if (mainWindow != nullptr) 
 	{

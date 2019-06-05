@@ -1,22 +1,17 @@
 #pragma once
 #ifndef _CAMERA_H
 #define _CAMERA_H
-#include "Color.h"
-#include "../Math/Vector3.h"
-#include "../Math/Matrix4x4.h"
-#include "../Math/Quaternion.h"
+#include "../Color.h"
+#include "Component.h"
+#include "../BaseDef.h"
+#include "../../Math/Vector3.h"
+#include "../../Math/Matrix4x4.h"
+#include "../../Math/Quaternion.h"
 class GraphicsClass;
 
 using namespace Math;
 namespace Engine {
-	enum CameraClearFlags
-	{
-		DontClear = 0,
-		ClearWithColor = 1,
-		ClearWithDepth = 2,
-		ClearWithColorAndDepth = 3
-	};
-	class Camera
+	class Camera:public Component
 	{
 	private:
 		char clearFlags = 0;
@@ -24,10 +19,9 @@ namespace Engine {
 		float aspectRatio;//视口宽高比
 		GraphicsClass* m_pGraphic;
 		Color backGround;//背景颜色
-		Matrix4x4 matProj;
-		Matrix4x4 matView;
+		Matrix4x4 matrixProj;
 	public:
-		Camera(GraphicsClass* pGraphic, float ratio, int depth = 0, char clearFlag = CameraClearFlags::ClearWithColorAndDepth);
+		Camera(SceneObject* pOwnObj, GraphicsClass* pGraphic, float ratio, int depth, char clearFlag);
 		~Camera();
 		void Render();
 		void SetBackColor(const Color& c);
@@ -42,6 +36,12 @@ namespace Engine {
 		{
 			return depth;
 		}
+		inline virtual void OnEnable() {}
+		inline virtual void OnDisable() {}
+
+		inline virtual void Update() {}
+
+		inline virtual void LateUpdate() {}
 	};
 
 }

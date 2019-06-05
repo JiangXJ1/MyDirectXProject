@@ -21,6 +21,7 @@ namespace Math {
 		float* operator[](int i);
 		Matrix4x4 operator* (const Matrix4x4& rhs) const;
 		void operator*= (const Matrix4x4& rhs);
+		void operator= (const Matrix4x4& rhs);
 
 #pragma endregion
 
@@ -30,8 +31,12 @@ namespace Math {
 		void multDirectionMatrix(const Vector3 &src, Vector3 &dst) const;
 		//求逆矩阵
 		bool Inverse(Matrix4x4& dst) const;
+		Matrix4x4 GetInverse() const;
 		//求转置矩阵
 		void Transpose(Matrix4x4& dst) const;
+		Matrix4x4 GetTranspose() const;
+		//转换为单位矩阵
+		void Reset();
 #pragma endregion
 
 	};

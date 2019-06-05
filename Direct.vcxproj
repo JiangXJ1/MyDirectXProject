@@ -19,10 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\Camera.h" />
+    <ClInclude Include="Engine\BaseDef.h" />
     <ClInclude Include="Engine\Color.h" />
+    <ClInclude Include="Engine\Components\Camera.h" />
     <ClInclude Include="Engine\Components\Component.h" />
-    <ClInclude Include="Engine\Components\Transform.h" />
+    <ClInclude Include="Engine\Components\Renderer.h" />
     <ClInclude Include="Engine\SceneObject.h" />
     <ClInclude Include="GraphicsClass.h" />
     <ClInclude Include="InputClass.h" />
@@ -31,14 +32,15 @@
     <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="MyWindow.h" />
+    <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SystemClass.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Color.cpp" />
+    <ClCompile Include="Engine\Components\Camera.cpp" />
     <ClCompile Include="Engine\Components\Component.cpp" />
-    <ClCompile Include="Engine\Components\Transform.cpp" />
+    <ClCompile Include="Engine\Components\Renderer.cpp" />
     <ClCompile Include="Engine\SceneObject.cpp" />
     <ClCompile Include="GraphicsClass.cpp" />
     <ClCompile Include="InputClass.cpp" />
@@ -48,6 +50,7 @@
     <ClCompile Include="Math\Quaternion.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="MyWindow.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="SystemClass.cpp" />
   </ItemGroup>
   <ItemGroup>

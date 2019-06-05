@@ -166,37 +166,6 @@ void MyWindow::Frame()
 		if (Input->IsKeyUp(VK_SPACE)) {
 			this->SetFullScreen(!this->fullscreen);
 		}
-		if (Input->IsKeyUp(VK_F1)) {
-			auto camera = this->m_pGraphic->CreateCamera(0, CameraClearFlags::ClearWithColor);
-			camera->SetBackColor(1, 0, 0, 1);
-		}
-		if (Input->IsKeyUp(VK_F2)) {
-			auto camera = this->m_pGraphic->CreateCamera(-1, CameraClearFlags::ClearWithColor);
-			camera->SetBackColor(0, 0, 1, 0.5);
-		}
-		if (Input->IsKeyUp(VK_F3)) {
-			float aaa[4][4] = {
-				{1, 0, 0, 10},
-				{0, 1, 0, 10},
-				{0, 0, 1, 2},
-				{0, 0, 0, 1}
-			};
-			Matrix4x4 m1(aaa);
-			Vector3 v1(0, 0, 1);
-			Vector3 v2(0, 0, 0);
-			m1.multPointMatrix(v1, v2);
-			Vector3 v3 = v2;
-			v3 = v2;
-			Matrix4x4 m2;
-			Matrix4x4 m3;
-			auto r = m1.Inverse(m2);
-			m2.Transpose(m3);
-
-			m2.multPointMatrix(v2, v3);
-			int a = 0;
-			m3.multPointMatrix(v2, v3);
-			int n = 0;
-		}
 	}
 	if (m_pGraphic != nullptr) {
 		m_pGraphic->Render();

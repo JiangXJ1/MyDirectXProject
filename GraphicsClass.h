@@ -5,9 +5,15 @@
 #include <d3d11.h>
 #include <vector>
 #include "Engine/Color.h"
-#include "Engine/Camera.h"
+#include "Engine/BaseDef.h"
 using namespace std;
 using namespace Engine;
+
+namespace Engine 
+{
+	class SceneObject;
+	class Camera;
+}
 
 class GraphicsClass
 {
@@ -36,7 +42,7 @@ public:
 	void ClearColor(Color& backColor);
 	void ResetSize(int WINDOW_WIDTH, int WINDOW_HEIGHT);
 	HRESULT Initialize(HWND hwnd, int WINDOW_WIDTH, int WINDOW_HEIGHT);
-	Camera* CreateCamera(int depth = 0, char clearFlag = CameraClearFlags::ClearWithColorAndDepth);
+	Camera* CreateCamera(SceneObject* pObj, int depth, char clearFlag);
 	bool RemoveCamera(Camera* camera);
 };
 #endif

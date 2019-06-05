@@ -1,10 +1,17 @@
 #include "Camera.h"
-#include "../GraphicsClass.h"
+#include "../BaseDef.h"
+#include "../../SystemClass.h"
+#include "../../GraphicsClass.h"
 
 namespace Engine {
-	Camera::Camera(GraphicsClass* pGraphic, float rect_ratio, int render_depth, char clear_flag)
-		: m_pGraphic(pGraphic), aspectRatio(rect_ratio), depth(render_depth), clearFlags(clear_flag)
+	Camera::Camera(SceneObject* pOwnObj, GraphicsClass* pGraphic, float rect_ratio, int render_depth, char clear_flag)
+		: Component(pOwnObj, COMPONENT_CAMERA), 
+		m_pGraphic(pGraphic), 
+		aspectRatio(rect_ratio), 
+		depth(render_depth), 
+		clearFlags(clear_flag)
 	{
+		ObjectMgr->PushCamera(this);
 	}
 
 	Camera::~Camera()
@@ -13,7 +20,7 @@ namespace Engine {
 
 	void Camera::Render()
 	{
-		if ((clearFlags & CameraClearFlags::ClearWithColor) > 0) {
+		if ((clearFlags & CAMERA_CLEAR_FLAG_COLOR) > 0) {
 			m_pGraphic->ClearColor(backGround);
 		}
 	}
@@ -38,5 +45,4 @@ namespace Engine {
 	{
 		clearFlags = flag;
 	}
-
 }

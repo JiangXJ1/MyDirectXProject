@@ -21,7 +21,8 @@ namespace Math {
 		void operator-=(const Vector3& v);
 		Vector3 operator*(const Vector3& v) const;
 		void operator*=(const Vector3& v);
-		bool operator==(const Vector3& v);
+		void operator/=(const Vector3& v);
+		bool operator==(const Vector3& v) const;
 		void operator=(const Vector3& v);
 #pragma endregion
 
