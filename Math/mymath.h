@@ -8,6 +8,10 @@ inline float Angle2Radian(float angle) {
 inline float Radian2Angle(float radian) {
 	return radian / pi * 180;
 }
+//¼ÆËãcot
+inline float cot(float radian) {
+	return tan(pi / 2 - radian);
+}
 namespace Math {
 	class myMath 
 	{

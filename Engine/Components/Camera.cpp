@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "../../Math/mymath.h"
 #include "../BaseDef.h"
 #include "../../SystemClass.h"
 #include "../../GraphicsClass.h"
@@ -9,13 +10,40 @@ namespace Engine {
 		m_pGraphic(pGraphic), 
 		aspectRatio(rect_ratio), 
 		depth(render_depth), 
-		clearFlags(clear_flag)
+		clearFlags(clear_flag),
+		isOrthogonal(false),
+		size(5),
+		fieldOfView(40),
+		farClipPanel(200),
+		nearClipPanel(10)
 	{
 		ObjectMgr->PushCamera(this);
 	}
 
 	Camera::~Camera()
 	{
+	}
+
+	void Camera::CalcClipMatrix()
+	{
+		matrixClip.Reset();
+		if (!isOrthogonal) 
+		{
+			auto value = cot(fieldOfView * 0.5f);
+			matrixClip[0][0] = value / aspectRatio;
+			matrixClip[1][1] = value;
+			matrixClip[2][2] = -(farClipPanel + nearClipPanel) / (farClipPanel - nearClipPanel);
+			matrixClip[2][3] = -2 * farClipPanel * nearClipPanel / (farClipPanel - nearClipPanel);
+			matrixClip[3][2] = -1;
+		}
+		else
+		{
+			matrixClip[0][0] = 1 / (aspectRatio * size);
+			matrixClip[1][1] = 1 / size;
+			matrixClip[2][2] = -2 / (farClipPanel - nearClipPanel);
+			matrixClip[2][3] = -(farClipPanel + nearClipPanel) / (farClipPanel - nearClipPanel);
+			matrixClip[3][2] = -1;
+		}
 	}
 
 	void Camera::Render()
@@ -44,5 +72,35 @@ namespace Engine {
 	void Camera::SetClearFlags(char flag)
 	{
 		clearFlags = flag;
+	}
+	void Camera::SetSize(float viewSize)
+	{
+		if (size != viewSize) 
+		{
+			size = viewSize;
+			if (isOrthogonal)
+			{
+				CalcProjMatrix();
+			}
+		}
+	}
+	float Camera::GetSize() const
+	{
+		return size;
+	}
+	void Camera::SetFov(float fov)
+	{
+		if (fieldOfView != fov)
+		{
+			fieldOfView = fov;
+			if (!isOrthogonal)
+			{
+				CalcProjMatrix();
+			}
+		}
+	}
+	float Camera::GetFov() const
+	{
+		return fieldOfView;
 	}
 }

@@ -19,10 +19,23 @@ namespace Engine {
 		float aspectRatio;//视口宽高比
 		GraphicsClass* m_pGraphic;
 		Color backGround;//背景颜色
-		Matrix4x4 matrixProj;
+		//是否是正交相机
+		bool isOrthogonal;
+		//正交相机尺寸
+		float size;
+		//相机广角
+		float fieldOfView;
+		//远裁剪面
+		float farClipPanel;
+		//近裁剪面
+		float nearClipPanel;
+		Matrix4x4 matrixClip;
 	public:
 		Camera(SceneObject* pOwnObj, GraphicsClass* pGraphic, float ratio, int depth, char clearFlag);
 		~Camera();
+	private:
+		void CalcClipMatrix();
+	public:
 		void Render();
 		void SetBackColor(const Color& c);
 		void SetBackColor(const float& r, const float& g, const float& b, const float& a);
@@ -42,6 +55,13 @@ namespace Engine {
 		inline virtual void Update() {}
 
 		inline virtual void LateUpdate() {}
+
+
+		void SetSize(float viewSize);
+		float GetSize() const;
+		void SetFov(float fov);
+		float GetFov() const;
+
 	};
 
 }
